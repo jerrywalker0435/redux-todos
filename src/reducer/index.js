@@ -1,9 +1,9 @@
 /**
  * Created by jerry on 3/28/17.
  */
-// import { combineReducers } from 'redux';
-const todo = (state,action) => {
+import { combineReducers } from 'redux';
 
+const todo = (state,action) => {
     switch (action.type){
         case 'ADD_TODO':
             return {
@@ -25,7 +25,7 @@ const todo = (state,action) => {
 }
 
 export const todos = (state=[],action={})=>{
-    console.log('todos reducer ==',action)
+    // console.log('todos reducer ==',action)
     switch (action.type){
         case 'ADD_TODO':
             return [
@@ -40,7 +40,7 @@ export const todos = (state=[],action={})=>{
 }
 
 const visibilityFilter = (state='SHOW_ALL',action) => {
-    console.log('visibilityFilter reducer ==',action)
+    // console.log('visibilityFilter reducer ==',action)
     switch (action.type){
         case 'SET_VISIBILITY_FILTER':
             return action.filter;
@@ -66,20 +66,21 @@ const visibilityFilter = (state='SHOW_ALL',action) => {
 //     todos: todos,
 //     visibilityFilter: visibilityFilter
 // })
-const combineReducers = (reducers)=> {
-    return (state={},action) => {
-        return Object.keys(reducers).reduce(
-            (nextState,key)=>{
-                nextState[key] = reducers[key](
-                    state[key],
-                    action
-                );
-                return nextState;
-            },
-            {}
-        )
-    }
-}
+
+// const combineReducers = (reducers)=> {
+//     return (state={},action) => {
+//         return Object.keys(reducers).reduce(
+//             (nextState,key)=>{
+//                 nextState[key] = reducers[key](
+//                     state[key],
+//                     action
+//                 );
+//                 return nextState;
+//             },
+//             {}
+//         )
+//     }
+// }
 const todoApp = combineReducers({
     todos,
     visibilityFilter
