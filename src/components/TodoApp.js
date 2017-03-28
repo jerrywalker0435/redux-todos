@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import store from '../store';
-let nextTodoId = 0 ;
+let nextTodoId = 0;
 const TodoApp = (props) => {
     let input
     return (
@@ -13,7 +13,7 @@ const TodoApp = (props) => {
                     input = node;
                 }
             }/>
-            <button onClick={()=>{
+            <button onClick={()=> {
                 store.dispatch(
                     {
                         type: 'ADD_TODO',
@@ -27,9 +27,20 @@ const TodoApp = (props) => {
             </button>
             <ul>
                 {props.todos.map(todo=>
-                    <li key={todo.id}>
+                    <li key={todo.id}
+                        onClick={ ()=> store.dispatch({
+                            type: 'TOGGLE_TODO',
+                            id: todo.id
+                        })}
+
+                        style={{
+                            textDecoration: todo.completed ?
+                                'line-through' :
+                                'none'
+                        }}
+                    >
                         {todo.text}
-                </li>
+                    </li>
                 )}
             </ul>
         </div>
