@@ -1,7 +1,9 @@
 /**
  * Created by jerry on 3/28/17.
  */
+import { combineReducers } from 'redux';
 const todo = (state,action) => {
+
     switch (action.type){
         case 'ADD_TODO':
             return {
@@ -23,6 +25,7 @@ const todo = (state,action) => {
 }
 
 export const todos = (state=[],action={})=>{
+    console.log('todos reducer ==',action)
     switch (action.type){
         case 'ADD_TODO':
             return [
@@ -37,6 +40,7 @@ export const todos = (state=[],action={})=>{
 }
 
 const visibilityFilter = (state='SHOW_ALL',action) => {
+    console.log('visibilityFilter reducer ==',action)
     switch (action.type){
         case 'SET_VISIBILITY_FILTER':
             return action.filter;
@@ -45,16 +49,25 @@ const visibilityFilter = (state='SHOW_ALL',action) => {
     }
 }
 //combine Reducers ,different action will not effect different reducer
-const todoApp = (state={},action) => {
-    return {
-        todos: todos(
-            state.todos,
-            action
-        ),
-        visibilityFilter: visibilityFilter(
-            state.visibilityFilter,
-            action
-        )
-    }
-}
+// const todoApp = (state={},action) => {
+//     return {
+//         todos: todos(
+//             state.todos,
+//             action
+//         ),
+//         visibilityFilter: visibilityFilter(
+//             state.visibilityFilter,
+//             action
+//         )
+//     }
+// }
+
+// const todoApp = combineReducers({
+//     todos: todos,
+//     visibilityFilter: visibilityFilter
+// })
+const todoApp = combineReducers({
+    todos,
+    visibilityFilter
+})
 export default todoApp;
