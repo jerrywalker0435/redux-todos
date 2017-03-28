@@ -80,7 +80,6 @@ it('Redux store',()=>{
         }
     )
 
-
     console.log('Current state: ');
     console.log(store.getState());
     console.log('-----------------');

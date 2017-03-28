@@ -1,7 +1,7 @@
 /**
  * Created by jerry on 3/28/17.
  */
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 const todo = (state,action) => {
 
     switch (action.type){
@@ -66,6 +66,20 @@ const visibilityFilter = (state='SHOW_ALL',action) => {
 //     todos: todos,
 //     visibilityFilter: visibilityFilter
 // })
+const combineReducers = (reducers)=> {
+    return (state={},action) => {
+        return Object.keys(reducers).reduce(
+            (nextState,key)=>{
+                nextState[key] = reducers[key](
+                    state[key],
+                    action
+                );
+                return nextState;
+            },
+            {}
+        )
+    }
+}
 const todoApp = combineReducers({
     todos,
     visibilityFilter
