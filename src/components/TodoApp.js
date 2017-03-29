@@ -7,8 +7,8 @@ import FilterLink from './FilterLink';
 import { getVisibleTodos } from '../reducer/filter';
 let nextTodoId = 0;
 const TodoApp = (props) => {
-
-    const visibleTodos = getVisibleTodos(props.todos,props.visibilityFilter);
+    const { todos , visibilityFilter } = props;
+    const visibleTodos = getVisibleTodos(todos,visibilityFilter);
     let input
     return (
         <div>
@@ -49,9 +49,9 @@ const TodoApp = (props) => {
             </ul>
             <p>
                 Show:
-                <FilterLink filter="SHOW_ALL"> All </FilterLink>
-                <FilterLink filter="SHOW_ACTIVE"> Active </FilterLink>
-                <FilterLink filter="SHOW_COMPLETED"> Completed </FilterLink>
+                <FilterLink filter="SHOW_ALL" currentFilter={visibilityFilter}> All </FilterLink>
+                <FilterLink filter="SHOW_ACTIVE" currentFilter={visibilityFilter}> Active </FilterLink>
+                <FilterLink filter="SHOW_COMPLETED" currentFilter={visibilityFilter}> Completed </FilterLink>
             </p>
         </div>
     )
