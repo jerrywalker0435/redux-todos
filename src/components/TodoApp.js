@@ -3,8 +3,12 @@
  */
 import React from 'react';
 import store from '../store';
+import FilterLink from './FilterLink';
+import { getVisibleTodos } from '../reducer/filter';
 let nextTodoId = 0;
 const TodoApp = (props) => {
+
+    const visibleTodos = getVisibleTodos(props.todos,props.visibilityFilter);
     let input
     return (
         <div>
@@ -26,7 +30,7 @@ const TodoApp = (props) => {
                 Add Todo
             </button>
             <ul>
-                {props.todos.map(todo=>
+                {visibleTodos.map(todo=>
                     <li key={todo.id}
                         onClick={ ()=> store.dispatch({
                             type: 'TOGGLE_TODO',
@@ -43,6 +47,12 @@ const TodoApp = (props) => {
                     </li>
                 )}
             </ul>
+            <p>
+                Show:
+                <FilterLink filter="SHOW_ALL"> All </FilterLink>
+                <FilterLink filter="SHOW_ACTIVE"> Active </FilterLink>
+                <FilterLink filter="SHOW_COMPLETED"> Completed </FilterLink>
+            </p>
         </div>
     )
 }
