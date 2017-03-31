@@ -4,6 +4,7 @@
 import React from 'react';
 import store from '../store';
 import FilterLink from './FilterLink';
+import TodoList from './TodoList';
 import { getVisibleTodos } from '../reducer/filter';
 let nextTodoId = 0;
 const TodoApp = (props) => {
@@ -29,24 +30,15 @@ const TodoApp = (props) => {
             }}>
                 Add Todo
             </button>
-            <ul>
-                {visibleTodos.map(todo=>
-                    <li key={todo.id}
-                        onClick={ ()=> store.dispatch({
-                            type: 'TOGGLE_TODO',
-                            id: todo.id
-                        })}
+            <TodoList todos={visibleTodos} onTodoClick={
+                id => store.dispatch(
+                    {
+                        type: 'TOGGLE_TODO',
+                        id: id
+                    }
+                )
+            }/>
 
-                        style={{
-                            textDecoration: todo.completed ?
-                                'line-through' :
-                                'none'
-                        }}
-                    >
-                        {todo.text}
-                    </li>
-                )}
-            </ul>
             <p>
                 Show:
                 <FilterLink filter="SHOW_ALL" currentFilter={visibilityFilter}> All </FilterLink>
