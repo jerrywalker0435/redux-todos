@@ -5,31 +5,25 @@ import React from 'react';
 import store from '../store';
 import FilterLink from './FilterLink';
 import TodoList from './TodoList';
-import { getVisibleTodos } from '../reducer/filter';
+import {getVisibleTodos} from '../reducer/filter';
+import AddTodo from './AddTodo';
+
 let nextTodoId = 0;
 const TodoApp = (props) => {
-    const { todos , visibilityFilter } = props;
-    const visibleTodos = getVisibleTodos(todos,visibilityFilter);
-    let input
+    const {todos, visibilityFilter} = props;
+    const visibleTodos = getVisibleTodos(todos, visibilityFilter);
+
     return (
         <div>
-            <input ref={
-                node => {
-                    input = node;
-                }
-            }/>
-            <button onClick={()=> {
+            <AddTodo onAddClick={ text =>
                 store.dispatch(
                     {
                         type: 'ADD_TODO',
-                        text: input.value,
-                        id: nextTodoId++
+                        id: nextTodoId++,
+                        text: text
                     }
-                );
-                input.value = '';
-            }}>
-                Add Todo
-            </button>
+                )
+            }/>
             <TodoList todos={visibleTodos} onTodoClick={
                 id => store.dispatch(
                     {
