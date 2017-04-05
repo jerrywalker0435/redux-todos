@@ -3,43 +3,44 @@
  */
 import React from 'react';
 import store from '../store';
-import FilterLink from './FilterLink';
+import Footer from './Footer';
 import TodoList from './TodoList';
 import {getVisibleTodos} from '../reducer/filter';
 import AddTodo from './AddTodo';
 
 let nextTodoId = 0;
-const TodoApp = (props) => {
-    const {todos, visibilityFilter} = props;
-    const visibleTodos = getVisibleTodos(todos, visibilityFilter);
+const TodoApp = ({todos, visibilityFilter}) => (
+    <div>
+        <AddTodo onAddClick={ text =>
+            store.dispatch(
+                {
+                    type: 'ADD_TODO',
+                    id: nextTodoId++,
+                    text: text
+                }
+            )
+        }/>
+        <TodoList todos={getVisibleTodos(todos, visibilityFilter)} onTodoClick={
+            id => store.dispatch(
+                {
+                    type: 'TOGGLE_TODO',
+                    id: id
+                }
+            )
+        }/>
 
-    return (
-        <div>
-            <AddTodo onAddClick={ text =>
-                store.dispatch(
-                    {
-                        type: 'ADD_TODO',
-                        id: nextTodoId++,
-                        text: text
-                    }
-                )
-            }/>
-            <TodoList todos={visibleTodos} onTodoClick={
-                id => store.dispatch(
-                    {
-                        type: 'TOGGLE_TODO',
-                        id: id
-                    }
-                )
-            }/>
+        <Footer visibilityFilter={visibilityFilter} onFilterClick={
+            filter => store.dispatch(
+                {
+                    type: 'SET_VISIBILITY_FILTER',
+                    filter
 
-            <p>
-                Show:
-                <FilterLink filter="SHOW_ALL" currentFilter={visibilityFilter}> All </FilterLink>
-                <FilterLink filter="SHOW_ACTIVE" currentFilter={visibilityFilter}> Active </FilterLink>
-                <FilterLink filter="SHOW_COMPLETED" currentFilter={visibilityFilter}> Completed </FilterLink>
-            </p>
-        </div>
-    )
-}
+                }
+            )
+        }
+        />
+
+    </div>
+)
+
 export default TodoApp;
