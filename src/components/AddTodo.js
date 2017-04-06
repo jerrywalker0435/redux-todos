@@ -28,16 +28,6 @@ let AddTodo = ({ dispatch }) => {
     )
 }
 
-AddTodo = connect(
-    state => {
-        return {};
-    },
-    dispatch => {
-        return { dispatch };
-    }
-)(AddTodo)
-
-
-
+AddTodo = connect()(AddTodo)
 
 export default AddTodo;
