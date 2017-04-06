@@ -2,11 +2,11 @@
  * Created by jerry on 3/29/17.
  */
 import React from 'react';
-import store from '../store';
 let nextTodoId = 0;
 
-const AddTodo = () => {
+const AddTodo = (props,{ store }) => {
     let input;
+
     return (
         <div>
             <input ref={ node => (input = node) }/>
@@ -25,6 +25,8 @@ const AddTodo = () => {
         </div>
     )
 }
-
+AddTodo.contextTypes = {
+    store: React.PropTypes.object
+}
 
 export default AddTodo;

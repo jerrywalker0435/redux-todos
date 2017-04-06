@@ -2,11 +2,11 @@
  * Created by jerry on 4/6/17.
  */
 import React from 'react';
-import store from '../store';
 import TodoList from './TodoList';
 import { getVisibleTodos } from '../reducer/filter';
 class VisibleTodoList extends React.Component {
     componentDidMount(){
+        const { store } = this.context;
         this.unsubscribe = store.subscribe(()=>this.forceUpdate());
     }
 
@@ -14,6 +14,8 @@ class VisibleTodoList extends React.Component {
         this.unsubscribe();
     }
     render(){
+        const { store } = this.context;
+
         const state = store.getState();
 
 
@@ -30,6 +32,10 @@ class VisibleTodoList extends React.Component {
             />
         )
     }
+}
+
+VisibleTodoList.contextTypes = {
+    store: React.PropTypes.object
 }
 
 export default VisibleTodoList;
