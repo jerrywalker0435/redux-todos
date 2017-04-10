@@ -2,7 +2,7 @@
  * Created by jerry on 4/6/17.
  */
 import TodoList from './TodoList';
-import { getVisibleTodos } from '../reducer/filter';
+import { getVisibleTodos } from '../reducer/index';
 import { toggleTodo } from '../actions';
 import { connect } from 'react-redux';
 

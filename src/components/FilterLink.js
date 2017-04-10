@@ -1,7 +1,6 @@
 /**
  * Created by jerry on 3/29/17.
  */
-import React from 'react';
 import Link from './Link';
 import { setVisibilityFilter } from '../actions';
 import { connect } from 'react-redux';
